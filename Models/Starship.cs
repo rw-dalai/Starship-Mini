@@ -3,8 +3,11 @@ using System.Net.WebSockets;
 
 namespace Starship_Mini.Models;
 
+
+// is-a relationship
+
 // Idiomatic C#
-public class Starship
+public class Starship : BaseShip
 {
     // --- Backing Fields ----
     
@@ -43,7 +46,6 @@ public class Starship
     
     // Invariants: [1, 10]
     // crewMembers: int
-
     public int CrewMembers
     {
         get { return _crewMembers; }
@@ -58,8 +60,8 @@ public class Starship
             // }
             
             // Guard
-            ArgumentOutOfRangeException.ThrowIfNegativeOrZero(value);
-            ArgumentOutOfRangeException.ThrowIfGreaterThan(value, 10);
+            ArgumentOutOfRangeException.ThrowIfNegativeOrZero(value, nameof(CrewMembers));
+            ArgumentOutOfRangeException.ThrowIfGreaterThan(value, 10, nameof(CrewMembers));
 
             _crewMembers = value;
         }
@@ -79,7 +81,7 @@ public class Starship
         set
         {
             // [2016, 2026]
-            DateTime now = DateTime.UtcNow;
+            DateTime now = DateTime.UtcNow; // Zulu Time, ISO 8610
             
             DateOnly nowDate = DateOnly.FromDateTime(now);
             DateOnly minDate = nowDate.AddYears(-10);
@@ -92,14 +94,16 @@ public class Starship
     }
     // --- Ctor ---
     
-    public Starship(string name, int crewMembers, DateOnly buildAt)
+    public Starship(string name, int crewMembers, DateOnly buildAt) 
+        : base()
     {
         Name = name;
         CrewMembers = crewMembers;
         BuildAt = buildAt;
     }
 
-    public Starship()
+    public Starship() 
+        : base()
     {
     }
 

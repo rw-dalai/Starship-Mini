@@ -2,10 +2,11 @@
 
 using Starship_Mini.Models;
 
-// var starship = new Starship("Bounty", 8, new DateOnly(2026, 1, 1));
+// Starship starship1 = new Starship("Bounty", 8, new DateOnly(2026, 1, 1));
+BaseShip starship1 = new Starship("Bounty", 8, new DateOnly(2026, 1, 1));
 
 // Object Initializer Syntax
-var starship = new Starship()
+Starship starship2 = new Starship()
 {
     Name = "Bounty",
     CrewMembers = 8,
@@ -13,4 +14,17 @@ var starship = new Starship()
     IsBattleShip =  true,
 };
 
-Console.WriteLine(starship);
+
+var mothership = new Mothership();
+mothership.DockOn(starship1);
+mothership.DockOn(starship2);
+// mothership.Baseships.Clear();
+
+foreach (var ship in mothership.Baseships)
+{
+    Console.WriteLine(ship);
+}
+
+
+// Console.WriteLine(starship1);
+// Console.WriteLine(starship2);
