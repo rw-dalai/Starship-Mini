@@ -13,8 +13,6 @@ public class Starship : BaseShip
     
     private string _name;
     
-    private int _crewMembers;
-
     private DateOnly _buildAt;
     
     
@@ -43,33 +41,6 @@ public class Starship : BaseShip
         
     }
     
-    
-    // Invariants: [1, 10]
-    // crewMembers: int
-    public int CrewMembers
-    {
-        get { return _crewMembers; }
-
-        set
-        {
-            // FAIL FAST
-            // if (value < 1 || value > 10)
-            // {
-            //     throw new ArgumentOutOfRangeException(
-            //         "Amount of Crew Member should between 1 and 10 ");
-            // }
-            
-            // Guard
-            ArgumentOutOfRangeException.ThrowIfNegativeOrZero(value, nameof(CrewMembers));
-            ArgumentOutOfRangeException.ThrowIfGreaterThan(value, 10, nameof(CrewMembers));
-
-            _crewMembers = value;
-        }
-        
-        
-    }
-    
-    
     // Invariants: [date.now - 10 years, now]
     // buildAt: DateOnly
 
@@ -92,13 +63,13 @@ public class Starship : BaseShip
             _buildAt = value;
         }
     }
+    
     // --- Ctor ---
     
     public Starship(string name, int crewMembers, DateOnly buildAt) 
-        : base()
+        : base(crewMembers)
     {
         Name = name;
-        CrewMembers = crewMembers;
         BuildAt = buildAt;
     }
 
@@ -106,8 +77,32 @@ public class Starship : BaseShip
         : base()
     {
     }
+    
+    
+    // --- Equals ---
 
-    // --- Misc ---
+    public override bool Equals(object? obj)
+    {
+        if (obj is null) return false;
+        if (ReferenceEquals(this, obj)) return true;
+        if (obj.GetType() != GetType()) return false;
+        Starship starship = (Starship)obj;
+        return Equals(starship);
+        
+    }
+
+    protected bool Equals(Starship other)
+    {
+        return Name == other.Name;
+    }
+
+    public override int GetHashCode()
+    {
+        return _name.GetHashCode();
+    }
+
+
+    // --- To String ---
     
     public override string ToString()
     {
