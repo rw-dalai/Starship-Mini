@@ -19,7 +19,7 @@ public class MotherShip
         ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(BaseShips.Count, MAX_SHIPS);
 
         // For each element in the BaseShip List
-        //  take the list element can call baseShip_fromList.Equals (baseship)
+        //  take the list element and call the equals to compare the list elem with the param
         if (BaseShips.Contains(baseShip))
             throw new ArgumentException("Baseship is already in the list");
         
@@ -31,12 +31,13 @@ public class MotherShip
     {
         ArgumentNullException.ThrowIfNull(baseShip);
 
+        // For each element in the BaseShip List
+        //  take the list element and call the equals to compare the list elem with the param
         if (!BaseShips.Contains(baseShip))
             throw new ArgumentException("BaseShip is not in the list");
         
         _baseShips.Remove(baseShip);
     }
-    
     
     // Imperative Version
     // Return the total number of crew members on all docked ships.
