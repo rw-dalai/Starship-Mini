@@ -39,10 +39,45 @@ public class MotherShip
         _baseShips.Remove(baseShip);
     }
     
+    
+    // JavaScript: for (let baseship of baseships) {}
+    // Java: for (var basehip : baseships) {}
+    // C#: foreach (var basehip in basehips) {}
+    
     // Imperative Version
     // Return the total number of crew members on all docked ships.
-    // public int SumCrewMembers()
-    // {
+    public int SumCrewMembers_Imp()
+    {
+        int sum = 0;
+
+        // type inferring
+        // foreach (BaseShip baseship in BaseShips)
+        // foreach (var foobar in new List<int>() { 1, 2, 3 } )
+        foreach (var baseship in BaseShips )
+        {
+            sum += baseship.CrewMembers;
+        }
+
+        return sum;
+    }
+    
+    // Declarative
+    public int SumCrewMembers_Dec()
+    {
+        // (spaceship) -> int
+        // int sum = BaseShips.Sum(baseship => baseship.CrewMembers);
+        // return sum;
         
-    // }
+        return BaseShips.Sum(baseship => baseship.CrewMembers);
+    }
+    
+    // Return how many ships have more crew members than `limit`.
+    public int NumberLargeCrew(int limit)
+    {
+        // Baseship 1: 5 Crews
+        // Baseship 2: 8 Crews
+        // Baseship 3: 2 Crews
+        
+        // NumberLargeCrew(4) -> 2
+    }
 }
