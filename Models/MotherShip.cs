@@ -104,6 +104,31 @@ public class MotherShip
     // Return all ships with more crew members than `limit`.
     public IReadOnlyList<BaseShip> LargeShips_Imp(int limit)
     {
-        // TODO ...
+        var largeShips = new List<BaseShip>();
+        
+        foreach (var baseShip in BaseShips)
+        {
+            if (baseShip.CrewMembers > limit)
+            {
+                largeShips.Add(baseShip);
+            }
+        }
+
+        return largeShips;
+    }
+    
+    // Return all ships with more crew members than `limit`.
+    public IReadOnlyList<BaseShip> LargeShips_Decl(int limit)
+    {
+        // predicate: (baseship) => bool
+        // List<BaseShip> largeShips = BaseShips
+        //     .Where(baseShip => baseShip.CrewMembers > limit)
+        //     .ToList();
+        // return largeShips;
+
+        // predicate: (baseship) => bool
+        return BaseShips
+            .Where(baseShip => baseShip.CrewMembers > limit)
+            .ToList();
     }
 }
