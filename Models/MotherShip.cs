@@ -62,22 +62,48 @@ public class MotherShip
     }
     
     // Declarative
-    public int SumCrewMembers_Dec()
+    public int SumCrewMembers_Decl()
     {
-        // (spaceship) -> int
+        // Lambda: (spaceship) => int
         // int sum = BaseShips.Sum(baseship => baseship.CrewMembers);
         // return sum;
         
-        return BaseShips.Sum(baseship => baseship.CrewMembers);
+        return BaseShips.Sum((baseShip) => baseShip.CrewMembers);
     }
     
     // Return how many ships have more crew members than `limit`.
-    public int NumberLargeCrew(int limit)
+    public int NumberLargeCrew_Imp(int limit)
     {
-        // Baseship 1: 5 Crews
-        // Baseship 2: 8 Crews
-        // Baseship 3: 2 Crews
+        // BaseShip 1: 5 Crews // JA
+        // BaseShip 2: 8 Crews // JA
+        // BaseShip 3: 2 Crews // NEIN
         
-        // NumberLargeCrew(4) -> 2
+        // NumberLargeCrew(4) -> Anzahl: 2
+
+        int count = 0;
+        
+        foreach (var baseShip in BaseShips)
+        {
+            if (baseShip.CrewMembers > limit)
+            {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    public int NumberLargeCrew_Decl(int limit)
+    {
+        // predicate: (baseship) => bool
+        return BaseShips.Count(baseShip => baseShip.CrewMembers > limit);
+    }
+    
+    
+    
+    // Return all ships with more crew members than `limit`.
+    public IReadOnlyList<BaseShip> LargeShips_Imp(int limit)
+    {
+        // TODO ...
     }
 }
